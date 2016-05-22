@@ -1,0 +1,20 @@
+{
+  "name": "file-local-storage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/file-local-storage.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jesper Sørensen",
+  "license": "ISC",
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "grunt-browserify": "^5.0.0",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-open": "^0.2.3"
+  },
+  "browserify": {
+    "transform": [ "coffeeify" ]
+  }
+}
