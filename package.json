@@ -1,6 +1,6 @@
 {
   "name": "fake-local-storage",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An implementation of Web Storage localStorage without persistence",
   "main": "dist/fake-local-storage.js",
   "scripts": {
