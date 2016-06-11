@@ -1,7 +1,7 @@
 {
   "name": "fake-local-storage",
   "version": "1.0.0",
-  "description": "",
+  "description": "An implementation of Web Storage localStorage without persistence",
   "main": "dist/fake-local-storage.js",
   "scripts": {
     "start": "grunt start",
@@ -9,7 +9,11 @@
   },
   "author": "Jesper Sørensen",
   "license": "ISC",
-  "dependencies": {
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeppester/fake-local-storage.git"
+  },
+  "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-connect": "^0.2.0",
     "grunt-contrib-coffee": "^1.0.0",
