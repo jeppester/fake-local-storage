@@ -20,7 +20,8 @@ fakeLocalStorage = ()->
     if data[prop] then delete data[prop]
 
   clear = ->
-    data = {}
+    for name of data
+      delete data[name]
     return
 
   localStorage = new Proxy data,

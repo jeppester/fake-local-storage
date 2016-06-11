@@ -37,7 +37,10 @@
       }
     };
     clear = function() {
-      data = {};
+      var name;
+      for (name in data) {
+        delete data[name];
+      }
     };
     localStorage = new Proxy(data, {
       set: function(obj, prop, value) {
