@@ -2,8 +2,7 @@
   var error, fakeLocalStorage;
 
   fakeLocalStorage = function() {
-    var clear, data, getItem, localStorage, removeItem, setItem;
-    window.originalLocalStorage = window.localStorage;
+    var clear, data, getItem, handler, localStorage, ref, removeItem, setItem;
     data = {};
     getItem = function(prop) {
       if (data[prop] !== void 0) {
@@ -42,7 +41,7 @@
         delete data[name];
       }
     };
-    localStorage = new Proxy(data, {
+    handler = {
       set: function(obj, prop, value) {
         switch (prop) {
           case 'length':
@@ -76,15 +75,25 @@
             }
         }
       }
-    });
-    return Object.defineProperty(window, 'localStorage', {
-      get: function() {
-        return localStorage;
-      },
-      set: function() {
-        throw new Error('Using file-local-storage plugin - don\'t try to override');
-      }
-    });
+    };
+    if ((ref = typeof Proxy) === 'undefined' || ref === 'object') {
+      throw new Error('fake-local-storage requires ES 2015 Proxy support');
+    } else {
+      localStorage = new Proxy(data, handler);
+    }
+    if (typeof window === 'undefined') {
+      return global.localStorage = localStorage;
+    } else {
+      window.originalLocalStorage = window.localStorage;
+      return Object.defineProperty(window, 'localStorage', {
+        get: function() {
+          return localStorage;
+        },
+        set: function() {
+          throw new Error('Using fake-local-storage plugin - don\'t try to override');
+        }
+      });
+    }
   };
 
   try {

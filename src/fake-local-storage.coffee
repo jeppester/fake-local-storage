@@ -1,6 +1,4 @@
 fakeLocalStorage = ()->
-  window.originalLocalStorage = window.localStorage
-
   data = {}
 
   getItem = (prop)->
@@ -24,7 +22,7 @@ fakeLocalStorage = ()->
       delete data[name]
     return
 
-  localStorage = new Proxy data,
+  handler =
     set: (obj, prop, value)->
       switch prop
         when 'length', 'getItem', 'setItem', 'removeItem' then return
@@ -41,10 +39,19 @@ fakeLocalStorage = ()->
           v = getItem(prop)
           if v != null then v else undefined
 
-  Object.defineProperty window, 'localStorage',
-    get: -> localStorage
-    set: ->
-      throw new Error 'Using file-local-storage plugin - don\'t try to override'
+  if typeof Proxy in ['undefined', 'object']
+    throw new Error 'fake-local-storage requires ES 2015 Proxy support'
+  else
+    localStorage = new Proxy data, handler
+
+  if typeof window == 'undefined'
+    global.localStorage = localStorage
+  else
+    window.originalLocalStorage = window.localStorage
+    Object.defineProperty window, 'localStorage',
+      get: -> localStorage
+      set: ->
+        throw new Error 'Using fake-local-storage plugin - don\'t try to override'
 
 try
   module.exports = fakeLocalStorage
