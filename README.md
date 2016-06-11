@@ -41,8 +41,7 @@ require('fake-local-storage')()
 
 ## Known limitations
 
-This module is primarily made for solving a specific problem that I've encountered.
-Thus it is currently only implementing the functionality needed for solving that problem.
+This module is primarily made for solving one specific problem (see motivation section), thus it is currently only implementing the functionality needed for solving that problem.
 
 **All basic functionality is implemented EXCEPT EVENTS**
 
